@@ -1,9 +1,22 @@
 package ru.gb.dz20
 
+import android.annotation.SuppressLint
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Intent
 import android.graphics.PointF
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKitFactory
 import com.yandex.mapkit.ScreenPoint
@@ -89,9 +102,18 @@ class MainActivity : AppCompatActivity() {
                 map.move(position, SMOOTH_ANIMATION, null)
             }
             buttonPin.setOnClickListener {
-                throw Exception("My first exception does't work")
+                supportFragmentManager.commit {
+                    replace<MainFragment>(R.id.fragment_container)
+                    addToBackStack(MainFragment::class.java.simpleName)
+                }
 
-
+//                FirebaseCrashlytics.getInstance().log("This is log message with additional info")
+//                createNotification()
+//                try {
+//                    throw Exception("My first exception does't work")
+//                } catch (e: Exception) {
+//                    FirebaseCrashlytics.getInstance().recordException(e)
+//                }
 //                val focusPoint = mapWindow.focusPoint ?: return@setOnClickListener
 //                val point = mapWindow.screenToWorld(focusPoint) ?: return@setOnClickListener
 //                placemarkMapObject.geometry = point
@@ -158,7 +180,35 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+//    @SuppressLint("MissingPermission", "NotificationPermission")
+//    fun createNotification() {
+//
+//        val intent = Intent(requireContext(), MainActivity::class.java)
+//
+//        val pendingIntent = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+//            PendingIntent.getActivity(requireContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
+//        else
+//            PendingIntent.getActivity(
+//                requireContext(),
+//                0,
+//                intent,
+//                PendingIntent.FLAG_UPDATE_CURRENT
+//            )
+//
+//        val notification = NotificationCompat.Builder(requireContext(), App.NOTIFICATION_CHANNEL_ID)
+//            .setSmallIcon(R.drawable.ic_notifications)
+//            .setContentTitle("My first notification")
+//            .setContentText("Description of my first notification")
+//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//            .setContentIntent(pendingIntent)
+//            .setAutoCancel(true)
+//            .build()
+//
+//        NotificationManagerCompat.from(requireContext()).notify(NOTIFICATION_ID, notification)
+//    }
+
     companion object {
+//        private const val NOTIFICATION_ID = 1000
         private const val ZOOM_STEP = 1f
         private val START_ANIMATION = Animation(Animation.Type.LINEAR, 1f)
         private val SMOOTH_ANIMATION = Animation(Animation.Type.SMOOTH, 0.4f)

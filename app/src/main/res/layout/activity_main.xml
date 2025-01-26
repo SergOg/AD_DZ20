@@ -3,44 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
     <com.yandex.mapkit.mapview.MapView
         android:id="@+id/mapview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:visibility="gone"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/edit_query"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search"
-            android:inputType="text"
-            android:background="@drawable/map_control_background"
-            android:lines="1" />
-
-        <Button
-            android:id="@+id/button_reset"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="4dp"
-            android:text="reset" />
-
-        <Button
-            android:id="@+id/button_search"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="search" />
-
-    </LinearLayout>
 
     <View
         android:layout_width="1dp"
@@ -143,34 +112,14 @@
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button_focus_geometry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="2dp"
-                android:text="focus\ngeometry" />
-
-            <Button
-                android:id="@+id/button_focus_placemark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="focus\nplacemark" />
-
-            <Button
-                android:id="@+id/button_create_placemark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="create\nplacemark" />
-        </LinearLayout>
-
         <include
             android:id="@+id/mapkit_version"
             layout="@layout/mapkit_version_layout" />
     </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
