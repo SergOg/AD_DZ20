@@ -22,7 +22,7 @@ class FcmService : FirebaseMessagingService() {
         val notification = NotificationCompat.Builder(this, App.NOTIFICATION_CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notifications)
             .setContentTitle(message.data["nickname"])
-            .setContentText(message.data["message"] + convertToDate(message.data["timestamp"]))
+            .setContentText(message.data["message"] + " ${convertToDate(message.data["timestamp"])}")
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .setAutoCancel(true)
             .build()
@@ -43,6 +43,6 @@ class FcmService : FirebaseMessagingService() {
     private fun convertToDate(timestamp: String?): String {
         timestamp ?: return  ""
         val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        return dateFormat.format(Date(timestamp.toLong()))
+        return dateFormat.format(Date(timestamp.toLong()*1000))
     }
 }
