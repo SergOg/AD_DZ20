@@ -9,7 +9,6 @@ import com.google.firebase.crashlytics.FirebaseCrashlytics
 import ru.gb.dz20.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
-
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
@@ -30,7 +29,11 @@ class MainFragment : Fragment() {
         binding.buttonCrash.setOnClickListener {
 
             FirebaseCrashlytics.getInstance().log("This is log message with additional info")
-            throw Exception("My first exception")
+            try {
+                throw Exception("My first exception")
+            } catch (e: Exception){
+                FirebaseCrashlytics.getInstance().recordException(e)
+            }
         }
     }
 
