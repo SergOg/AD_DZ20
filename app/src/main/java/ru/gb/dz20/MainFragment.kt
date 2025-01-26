@@ -5,6 +5,7 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.messaging.FirebaseMessaging
 import ru.gb.dz20.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -42,6 +44,10 @@ class MainFragment : Fragment() {
         }
         binding.buttonNotify.setOnClickListener {
             createNotification()
+        }
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            Log.d("registration token", it.result)
         }
     }
 
